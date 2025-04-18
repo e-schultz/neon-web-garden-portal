@@ -3,15 +3,12 @@ import { useState } from 'react';
 import Layout from '../components/Layout';
 import ProjectFilters from '@/components/projects/ProjectFilters';
 import ProjectCard from '@/components/projects/ProjectCard';
-import { projects } from '@/data/projects';
+import { projects, getProjectsByCategory } from '@/data/projects';
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   
-  const filteredProjects = projects.filter(project => {
-    if (activeFilter === 'all') return true;
-    return project.categories.includes(activeFilter);
-  });
+  const filteredProjects = getProjectsByCategory(activeFilter);
 
   return (
     <Layout>
