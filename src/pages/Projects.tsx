@@ -5,7 +5,6 @@ import { Terminal, Filter, Code, Database, PencilRuler, Braces } from 'lucide-re
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   
-  // Filter projects based on active filter
   const filteredProjects = projects.filter(project => {
     if (activeFilter === 'all') return true;
     return project.categories.includes(activeFilter);
@@ -16,7 +15,6 @@ const Projects = () => {
       <section className="py-16 bg-dark">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            {/* Header */}
             <div className="flex flex-wrap justify-between items-end mb-12">
               <div>
                 <h1 className="text-4xl font-bold mb-2">Projects</h1>
@@ -31,7 +29,6 @@ const Projects = () => {
               </div>
             </div>
             
-            {/* Filters */}
             <div className="mb-10">
               <div className="flex items-center space-x-2 text-sm mb-4">
                 <Filter className="w-4 h-4 text-neon" />
@@ -58,7 +55,6 @@ const Projects = () => {
               </div>
             </div>
             
-            {/* Project Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {filteredProjects.map((project) => (
                 <ProjectCard key={project.id} project={project} />
@@ -71,7 +67,6 @@ const Projects = () => {
   );
 };
 
-// Filter options with icons
 const filters = [
   { id: 'all', name: 'All Projects', icon: <Terminal className="w-4 h-4" /> },
   { id: 'web', name: 'Web Development', icon: <Code className="w-4 h-4" /> },
@@ -80,18 +75,66 @@ const filters = [
   { id: 'experiments', name: 'Experiments', icon: <Braces className="w-4 h-4" /> },
 ];
 
-// Mock project data
 const projects = [
   {
     id: 1,
-    title: "The Infinite Maw",
-    description: "A recursive ritual framework for building non-linear knowledge systems.",
-    longDescription: "It doesn't want to consume. It just wants to be held. The Infinite Maw is an experimental knowledge system designed for connecting disparate ideas and surfacing forgotten insights when they matter most.",
+    title: "Floating Digital Grimoire",
+    description: "A mystical digital compendium for organizing esoteric knowledge.",
+    longDescription: "A digital grimoire system that combines traditional occult wisdom with modern information architecture, creating an interactive space for knowledge synthesis.",
     categories: ['systems', 'experiments'],
-    technologies: ['React', 'TypeScript', 'Node.js'],
+    technologies: ['React', 'TypeScript', 'Graph DB'],
     image: "/lovable-uploads/23d00af8-973d-4d14-b1b6-43ce7416210b.png",
-    demoUrl: "https://example.com/demo",
-    repoUrl: "https://github.com/example/project"
+    repoUrl: "https://github.com/e-schultz/floating-digital-grimoire"
+  },
+  {
+    id: 2,
+    title: "FLOAT PKM Ideas",
+    description: "Personal Knowledge Management system with a recursive twist.",
+    longDescription: "An experimental PKM system that explores non-linear note-taking and knowledge organization through recursive patterns and emergent structures.",
+    categories: ['systems', 'experiments'],
+    technologies: ['React', 'D3.js', 'IndexedDB'],
+    image: "/lovable-uploads/cf7bdd20-95d2-457a-a35f-2ada8f0419e8.png",
+    repoUrl: "https://github.com/e-schultz/float-pkm-ideas-v0-1"
+  },
+  {
+    id: 3,
+    title: "Sonic Geometry Explorer",
+    description: "Visual and auditory exploration of geometric relationships.",
+    longDescription: "An interactive environment for exploring the connections between geometry, sound, and mathematical patterns through an immersive audio-visual experience.",
+    categories: ['experiments', 'design'],
+    technologies: ['Web Audio API', 'Three.js', 'Tone.js'],
+    image: "/lovable-uploads/53310c6c-2ada-4dff-8ea2-28cbac3f4b1e.png",
+    repoUrl: "https://github.com/e-schultz/sonic-geometry-explorer"
+  },
+  {
+    id: 4,
+    title: "Ghost Thread Experience",
+    description: "Thread-based digital art and knowledge exploration interface.",
+    longDescription: "A unique interface for exploring interconnected thoughts and digital artifacts through an ethereal thread-based visualization system.",
+    categories: ['web', 'design'],
+    technologies: ['React', 'SVG', 'WebGL'],
+    image: "/lovable-uploads/80d09443-6fc8-4030-a713-2e41c3eb21ef.png",
+    repoUrl: "https://github.com/e-schultz/ghost-thread-experience"
+  },
+  {
+    id: 5,
+    title: "FLOAT Concept Explorer",
+    description: "Visual tool for exploring and connecting abstract concepts.",
+    longDescription: "An experimental interface for visualizing and manipulating abstract concepts in a spatial environment, enabling new ways of understanding complex relationships.",
+    categories: ['systems', 'experiments'],
+    technologies: ['React', 'Three.js', 'TypeScript'],
+    image: "/lovable-uploads/4635d921-7941-43b6-9891-e890021ccfee.png",
+    repoUrl: "https://github.com/e-schultz/v0-float-concept-explorer"
+  },
+  {
+    id: 6,
+    title: "Pulsating Dreamscape",
+    description: "Generative art system creating dynamic visual landscapes.",
+    longDescription: "A generative art system that creates evolving visual landscapes using algorithmic patterns and user interaction.",
+    categories: ['web', 'design', 'experiments'],
+    technologies: ['Canvas API', 'WebGL', 'p5.js'],
+    image: "/lovable-uploads/19bee8bc-1125-48bf-9cf6-fa2764705682.png",
+    repoUrl: "https://github.com/e-schultz/pulsating-dreamscape"
   },
   {
     id: 7,
@@ -105,59 +148,14 @@ const projects = [
     repoUrl: "https://github.com/e-schultz/v0-float-zine-experiments"
   },
   {
-    id: 2,
-    title: "CLOSER FLOW",
-    description: "Productivity system designed for neurodivergent minds and creative work.",
-    longDescription: "PLASTIKMAN PRODUCTIVITY SYSTEM - Minimal. Recursive. Atmospheric. A knowledge-task integration system that works with how your brain actually processes information.",
-    categories: ['systems', 'design'],
-    technologies: ['Figma', 'React', 'Redux'],
-    image: "/lovable-uploads/cf7bdd20-95d2-457a-a35f-2ada8f0419e8.png",
-    demoUrl: "https://example.com/demo",
-    repoUrl: "https://github.com/example/project"
-  },
-  {
-    id: 3,
-    title: "FLOAT System",
-    description: "Foundational Lore for Oscillating Archetypal Topographies in digital systems.",
-    longDescription: "A recursive ritual framework for queer, burnt-out, neurodivergent minds building systems that feel like home.",
-    categories: ['systems', 'experiments'],
-    technologies: ['Conceptual Framework', 'Documentation'],
-    image: "/lovable-uploads/53310c6c-2ada-4dff-8ea2-28cbac3f4b1e.png",
-    demoUrl: "https://example.com/demo",
-    repoUrl: "https://github.com/example/project"
-  },
-  {
-    id: 4,
-    title: "Zettelkasten Interface",
-    description: "Digital implementation of the Zettelkasten note-taking method.",
-    longDescription: "A knowledge management application focused on connections between ideas rather than categorization, implementing the Zettelkasten method for note-taking and idea development.",
-    categories: ['web', 'design', 'systems'],
-    technologies: ['React', 'D3.js', 'LocalStorage API'],
-    image: "/lovable-uploads/80d09443-6fc8-4030-a713-2e41c3eb21ef.png",
-    demoUrl: "https://example.com/demo",
-    repoUrl: "https://github.com/example/project"
-  },
-  {
-    id: 5,
-    title: "Cyberpunk Terminal",
-    description: "Custom terminal UI with retro cyberpunk aesthetic.",
-    longDescription: "An 80s-inspired terminal interface with modern functionality. Features custom animations, command processing and a visually striking BBS-like interface.",
-    categories: ['web', 'design', 'experiments'],
-    technologies: ['JavaScript', 'HTML Canvas', 'CSS'],
-    image: "/lovable-uploads/19bee8bc-1125-48bf-9cf6-fa2764705682.png",
-    demoUrl: "https://example.com/demo",
-    repoUrl: "https://github.com/example/project"
-  },
-  {
-    id: 6,
-    title: "Neural Knowledge Base",
-    description: "AI-powered personal knowledge management system.",
-    longDescription: "A personal knowledge base that uses machine learning to connect related concepts, surface forgotten notes, and generate new insights from existing knowledge.",
-    categories: ['systems', 'web', 'experiments'],
-    technologies: ['Python', 'TensorFlow', 'React'],
-    image: "/lovable-uploads/4635d921-7941-43b6-9891-e890021ccfee.png",
-    demoUrl: "https://example.com/demo",
-    repoUrl: "https://github.com/example/project"
+    id: 8,
+    title: "Sacred Voxel Recursion",
+    description: "3D voxel-based exploration of sacred geometry patterns.",
+    longDescription: "A meditative tool for exploring sacred geometry through interactive 3D voxel-based representations and recursive patterns.",
+    categories: ['experiments', 'design'],
+    technologies: ['Three.js', 'WebGL', 'React'],
+    image: "/lovable-uploads/23d00af8-973d-4d14-b1b6-43ce7416210b.png",
+    repoUrl: "https://github.com/e-schultz/v0-sacred-voxel-recursion"
   }
 ];
 
