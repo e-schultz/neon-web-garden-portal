@@ -18,12 +18,20 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'mono': ['IBM Plex Mono', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				'neon': '#ff2ec9',
+				'neon-light': '#ff65d9',
+				'dark': '#0a0a0a',
+				'dark-light': '#1a1a1a',
+				'terminal-green': '#33ff66',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
