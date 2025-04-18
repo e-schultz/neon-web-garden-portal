@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import { Terminal, Filter, Code, Database, PencilRuler, Braces } from 'lucide-react';
@@ -93,6 +92,17 @@ const projects = [
     image: "/lovable-uploads/23d00af8-973d-4d14-b1b6-43ce7416210b.png",
     demoUrl: "https://example.com/demo",
     repoUrl: "https://github.com/example/project"
+  },
+  {
+    id: 7,
+    title: "FLOAT Zine Experiments",
+    description: "Digital zine experiments exploring interactive storytelling and recursive systems.",
+    longDescription: "A collection of digital zine experiments that explore the intersection of interactive storytelling, recursive systems, and digital gardens. Built with web technologies to create immersive reading experiences.",
+    categories: ['web', 'experiments', 'design'],
+    technologies: ['Web Components', 'JavaScript', 'CSS'],
+    image: "/lovable-uploads/19bee8bc-1125-48bf-9cf6-fa2764705682.png",
+    demoUrl: "https://float-zine-experiments.netlify.app/",
+    repoUrl: "https://github.com/e-schultz/v0-float-zine-experiments"
   },
   {
     id: 2,
