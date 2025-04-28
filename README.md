@@ -1,3 +1,24 @@
+
+---
+title: FLOAT - Digital Garden & Project Portfolio
+description: A cyberpunk-inspired digital garden and project portfolio
+repo: https://github.com/e-schultz/float-pkm
+demo: https://lovable.dev/projects/4f5a92aa-133f-4691-a02a-9b10a81c6224
+stack:
+  - React
+  - TypeScript
+  - Vite
+  - Tailwind CSS
+  - shadcn/ui
+  - React Router DOM
+  - React Query
+  - Recharts
+  - Radix UI
+status: Active
+last_updated: 2025-04-28
+license: MIT
+---
+
 # FLOAT - Digital Garden & Project Portfolio
 
 A cyberpunk-inspired digital garden and project portfolio that showcases experiments, products, and digital artifacts through an immersive interface. FLOAT (Foundational Lore for Oscillating Archetypal Topographies) combines traditional knowledge management with modern web technologies to create a unique browsing experience.
