@@ -1,4 +1,37 @@
-# Welcome to your Lovable project
+# FLOAT - Digital Garden & Project Portfolio
+
+A cyberpunk-inspired digital garden and project portfolio that showcases experiments, products, and digital artifacts through an immersive interface. FLOAT (Foundational Lore for Oscillating Archetypal Topographies) combines traditional knowledge management with modern web technologies to create a unique browsing experience.
+
+## Purpose
+
+This project serves as both a portfolio and a digital garden where:
+- Projects are showcased in an interactive, cyberpunk-themed interface
+- Knowledge and ideas are interconnected through a non-linear navigation system
+- Experiments in digital systems and creative coding are documented
+- Recursive patterns and systems thinking are explored visually
+
+## Tech Stack
+
+- **Frontend Framework**: React with TypeScript
+- **Build Tool**: Vite
+- **Styling**: 
+  - Tailwind CSS for utility-first styling
+  - shadcn/ui for component library
+- **Routing**: React Router DOM
+- **Data Visualization**: Recharts
+- **Icons**: Lucide React
+- **State Management**: React Query
+- **Form Handling**: React Hook Form with Zod validation
+- **UI Components**: Radix UI primitives
+
+## Project Structure
+
+- `/src/components` - Reusable UI components
+- `/src/pages` - Main page components
+- `/src/data` - Project and content data
+- `/src/types` - TypeScript type definitions
+- `/src/hooks` - Custom React hooks
+- `/src/lib` - Utility functions and helpers
 
 ## Project info
 
@@ -71,3 +104,21 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Local Development
+
+Follow these steps to run the project locally:
+
+```sh
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The development server will start at `http://localhost:5173`
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
