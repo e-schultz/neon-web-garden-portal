@@ -2,7 +2,7 @@
 ---
 title: FLOAT - Digital Garden & Project Portfolio
 description: A cyberpunk-inspired digital garden and project portfolio
-repo: https://github.com/e-schultz/float-pkm
+repo: https://github.com/e-schultz/neon-web-garden-portal
 demo: https://lovable.dev/projects/4f5a92aa-133f-4691-a02a-9b10a81c6224
 stack:
   - React
