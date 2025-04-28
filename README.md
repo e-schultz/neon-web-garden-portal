@@ -21,6 +21,9 @@ license: MIT
 
 # FLOAT - Digital Garden & Project Portfolio
 
+![image](https://github.com/user-attachments/assets/35a4105a-bc0c-4abb-993b-8c5a2d4a481e)
+
+
 A cyberpunk-inspired digital garden and project portfolio that showcases experiments, products, and digital artifacts through an immersive interface. FLOAT (Foundational Lore for Oscillating Archetypal Topographies) combines traditional knowledge management with modern web technologies to create a unique browsing experience.
 
 ## Purpose
