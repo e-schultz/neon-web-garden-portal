@@ -1,105 +1,76 @@
 
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Code, Terminal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils';
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrolled]);
-
   return (
-    <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-dark-light bg-opacity-80 backdrop-blur-lg shadow-lg' : 'bg-transparent'
-      }`}
-    >
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <Link 
-            to="/" 
-            className="flex items-center space-x-2 text-neon text-glow text-xl font-bold"
-          >
-            <Code className="w-6 h-6" />
-            <span className="font-mono">FLOAT</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <NavLink to="/projects">Projects</NavLink>
-            <NavLink to="/garden">Digital Garden</NavLink>
-            <NavLink to="/blog">Blog</NavLink>
-            <NavLink to="/contact">Contact</NavLink>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-neon border-opacity-30">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Link to="/" className="text-2xl font-bold text-primary text-glow">FLOAT</Link>
+          
+          <nav className="hidden md:flex space-x-6">
+            <Link 
+              to="/" 
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "hover:text-primary hover:bg-transparent"
+              )}
+            >
+              Home
+            </Link>
+            <Link 
+              to="/projects" 
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "hover:text-primary hover:bg-transparent"
+              )}
+            >
+              Projects
+            </Link>
+            <Link 
+              to="/garden" 
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "hover:text-primary hover:bg-transparent"
+              )}
+            >
+              Garden
+            </Link>
+            <Link 
+              to="/bridges" 
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "hover:text-primary hover:bg-transparent"
+              )}
+            >
+              Bridges
+            </Link>
+            <Link 
+              to="/contact" 
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "hover:text-primary hover:bg-transparent"
+              )}
+            >
+              Contact
+            </Link>
           </nav>
-
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden flex items-center text-neon"
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 glassmorphism mt-4 rounded-lg">
-            <nav className="flex flex-col space-y-4 p-4">
-              <MobileNavLink to="/projects" onClick={() => setIsMenuOpen(false)}>Projects</MobileNavLink>
-              <MobileNavLink to="/garden" onClick={() => setIsMenuOpen(false)}>Digital Garden</MobileNavLink>
-              <MobileNavLink to="/blog" onClick={() => setIsMenuOpen(false)}>Blog</MobileNavLink>
-              <MobileNavLink to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</MobileNavLink>
-            </nav>
+          
+          <div className="md:hidden">
+            <Button variant="ghost" size="icon">
+              <span className="sr-only">Open menu</span>
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </Button>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
 };
-
-interface NavLinkProps {
-  to: string;
-  children: React.ReactNode;
-}
-
-const NavLink = ({ to, children }: NavLinkProps) => (
-  <Link
-    to={to}
-    className="font-mono text-foreground hover:text-neon transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-0.5 after:bg-neon after:transition-all"
-  >
-    {children}
-  </Link>
-);
-
-interface MobileNavLinkProps {
-  to: string;
-  onClick: () => void;
-  children: React.ReactNode;
-}
-
-const MobileNavLink = ({ to, onClick, children }: MobileNavLinkProps) => (
-  <Link
-    to={to}
-    onClick={onClick}
-    className="flex items-center space-x-2 text-foreground hover:text-neon px-4 py-2 hover:bg-dark-light rounded transition-colors duration-200"
-  >
-    <Terminal className="w-4 h-4" />
-    <span>{children}</span>
-  </Link>
-);
 
 export default Header;
