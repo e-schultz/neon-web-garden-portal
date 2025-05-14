@@ -1,11 +1,11 @@
-
 import { useState } from 'react';
 import Layout from '@/components/Layout';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+import { BridgeCard } from '@/components/BridgeCard';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Sample data - in a real app you would fetch this from an API or context
 const continuityBridgesData = {
@@ -216,130 +216,41 @@ const continuityBridgesData = {
   ]
 };
 
-const BridgeCard = ({ bridge }: { bridge: any }) => {
-  const date = new Date(bridge.metadata.timestamp);
-  const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-  
-  return (
-    <Card className="neon-card mb-8 overflow-hidden">
-      <CardHeader className="bg-black bg-opacity-50 backdrop-blur-sm border-b border-neon border-opacity-30">
-        <div className="flex justify-between items-center">
-          <div>
-            <CardTitle className="text-glow text-xl font-mono">
-              {bridge.bridge_id}
-            </CardTitle>
-            <CardDescription className="text-muted-foreground flex items-center mt-1">
-              <Calendar className="h-4 w-4 mr-1" />
-              {formattedDate}
-            </CardDescription>
-          </div>
-          <Badge className="bg-primary text-white">
-            {bridge.metadata.mode}
-          </Badge>
-        </div>
-      </CardHeader>
-      
-      <CardContent className="pt-6">
-        {bridge.content_summary ? (
-          <div className="terminal-text mb-4">
-            <p className="whitespace-pre-wrap">{bridge.content_summary}</p>
-          </div>
-        ) : (
-          <div>
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-primary mb-2">CONTEXT MARKERS</h3>
-              <div className="flex flex-wrap gap-2">
-                {bridge.metadata.ctx_markers.split(',').map((marker: string, index: number) => (
-                  <Badge key={index} variant="outline" className="bg-muted border-neon">
-                    {marker.trim()}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-primary mb-2">TIMESTAMP MARKERS</h3>
-              <div className="code-block mb-4">
-                {bridge.section_data.session_context.timestamp_markers.map((marker: string, index: number) => (
-                  <div key={index} className="mb-1 flex items-center">
-                    <Clock className="h-3 w-3 mr-2 text-primary" />
-                    <span>{marker}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-primary mb-2">ACTIVE THREADS</h3>
-              <div className="space-y-4">
-                {bridge.section_data.active_threads.map((thread: any, index: number) => (
-                  <div key={index} className="border border-muted p-3 rounded-md bg-black bg-opacity-30">
-                    <h4 className="text-neon mb-2">{thread.name}</h4>
-                    <ul className="space-y-1 text-sm">
-                      {thread.activities.map((activity: string, actIndex: number) => (
-                        <li key={actIndex} className="flex items-start">
-                          <ArrowRight className="h-3 w-3 mr-2 mt-1 text-muted-foreground" />
-                          <span>{activity}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {bridge.section_data.notable_context_elements && (
-              <div>
-                <h3 className="text-sm font-medium text-primary mb-2">NOTABLE ELEMENTS</h3>
-                <div className="glassmorphism p-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="text-xs text-muted-foreground mb-1">SYSTEM MODE</h4>
-                      <p className="text-sm">{bridge.section_data.notable_context_elements.system_mode}</p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-xs text-muted-foreground mb-1">KEY METAPHORS</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {bridge.section_data.notable_context_elements.key_metaphors.map((metaphor: string, index: number) => (
-                          <Badge key={index} variant="secondary" className="bg-secondary/30">
-                            {metaphor}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-xs text-muted-foreground mb-1">SIGNAL PHRASES</h4>
-                      <ul className="text-sm list-disc list-inside">
-                        {bridge.section_data.notable_context_elements.signal_phrases.map((phrase: string, index: number) => (
-                          <li key={index} className="text-primary">{phrase}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-xs text-muted-foreground mb-1">OPEN TRACES</h4>
-                      <ul className="text-sm">
-                        {bridge.section_data.notable_context_elements.open_traces.map((trace: string, index: number) => (
-                          <li key={index} className="mb-1 text-muted-foreground">{trace}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  );
-};
-
 const ContinuityBridges = () => {
   const [activeTab, setActiveTab] = useState('all');
   const { continuity_bridges } = continuityBridgesData;
+  const isMobile = useIsMobile();
+
+  // Filter bridges for "this-week" tab
+  const today = new Date();
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() - today.getDay());
+  
+  const thisWeekBridges = continuity_bridges.filter(bridge => {
+    const bridgeDate = new Date(bridge.metadata.timestamp);
+    return bridgeDate >= startOfWeek;
+  });
+
+  // Group bridges by thread
+  const threadMap = new Map();
+  
+  continuity_bridges.forEach(bridge => {
+    if (bridge.metadata.active_threads) {
+      const threads = bridge.metadata.active_threads.split(',');
+      threads.forEach(thread => {
+        const threadName = thread.trim();
+        if (!threadMap.has(threadName)) {
+          threadMap.set(threadName, []);
+        }
+        threadMap.get(threadName).push(bridge);
+      });
+    }
+  });
+  
+  const threadGroups = Array.from(threadMap.entries()).map(([threadName, bridges]) => ({
+    threadName,
+    bridges
+  }));
 
   return (
     <Layout>
@@ -364,7 +275,7 @@ const ContinuityBridges = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-          <TabsList className="w-full justify-start mb-6 bg-black bg-opacity-30 border border-neon border-opacity-20">
+          <TabsList className="w-full mb-6 bg-black bg-opacity-30 border border-neon border-opacity-20">
             <TabsTrigger value="all" className="data-[state=active]:bg-primary data-[state=active]:text-white">
               All Bridges
             </TabsTrigger>
@@ -383,17 +294,47 @@ const ContinuityBridges = () => {
           </TabsContent>
           
           <TabsContent value="this-week">
-            <div className="p-12 text-center">
-              <h3 className="text-xl font-mono mb-3 text-primary">Filter Interface</h3>
-              <p className="text-muted-foreground">This tab will show only bridges from the current week.</p>
-            </div>
+            {thisWeekBridges.length > 0 ? (
+              <div className="space-y-4">
+                {thisWeekBridges.map((bridge: any, index: number) => (
+                  <BridgeCard key={index} bridge={bridge} />
+                ))}
+              </div>
+            ) : (
+              <Card className="p-12 text-center glassmorphism">
+                <h3 className="text-xl font-mono mb-3 text-primary">No bridges this week</h3>
+                <p className="text-muted-foreground">No continuity bridges have been created this week.</p>
+              </Card>
+            )}
           </TabsContent>
           
           <TabsContent value="by-thread">
-            <div className="p-12 text-center">
-              <h3 className="text-xl font-mono mb-3 text-primary">Thread Visualization</h3>
-              <p className="text-muted-foreground">This tab will group bridges by thread name.</p>
-            </div>
+            {threadGroups.length > 0 ? (
+              <div className="space-y-8">
+                {threadGroups.map((group, index) => (
+                  <div key={index} className="mb-8">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Badge variant="outline" className="bg-black text-neon py-1 px-3">
+                        {group.threadName}
+                      </Badge>
+                      <span className="text-muted-foreground text-sm">
+                        {group.bridges.length} {group.bridges.length === 1 ? 'bridge' : 'bridges'}
+                      </span>
+                    </div>
+                    <div className="space-y-4 pl-2 border-l-2 border-neon border-opacity-30">
+                      {group.bridges.map((bridge: any, bridgeIndex: number) => (
+                        <BridgeCard key={bridgeIndex} bridge={bridge} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <Card className="p-12 text-center glassmorphism">
+                <h3 className="text-xl font-mono mb-3 text-primary">No thread data available</h3>
+                <p className="text-muted-foreground">Could not group bridges by thread.</p>
+              </Card>
+            )}
           </TabsContent>
         </Tabs>
       </div>
